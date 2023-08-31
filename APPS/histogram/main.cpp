@@ -1,7 +1,10 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 #include "rand_init.hh"
 
 #define SEED_NUM 33
+#define MIN_VAL 0
+#define MAX_VAL 50
 
 using namespace std;
 
@@ -9,19 +12,12 @@ using namespace std;
 int main(int argc, char const *argv[]){
 
     const int N = 33;
-    const int MIN_VAL=0;
-    const int MAX_VAL=50;
 
-    int* data;
-    int* hist;
+    vector<int> data(N);
+    vector<int> hist(1 + MAX_VAL - MIN_VAL, 0);
 
-    // Allocate data:
-    data = (int*) malloc(sizeof(int)*N);
-    hist = (int*) malloc(sizeof(int)*(1 + MAX_VAL - MIN_VAL));
-    
-    // Random initialize & memset for results:
-    fill_array(data, N, MIN_VAL, MAX_VAL, SEED_NUM);
-    memset(hist, 0, sizeof(int)*(1 + MAX_VAL - MIN_VAL));
+    // Random initialize input data
+    fill_array(data.data(), data.size(), MIN_VAL, MAX_VAL, SEED_NUM);
 
     // Call to histogram computation
     for(int i = 0; i < N; ++i){
@@ -33,8 +29,5 @@ int main(int argc, char const *argv[]){
         cout << i << " " << hist[i] << endl;
     }
 
-    // Free data
-    free(data);
-    free(hist);
     return 0;
 }
