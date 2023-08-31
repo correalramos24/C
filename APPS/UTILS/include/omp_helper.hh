@@ -13,4 +13,13 @@ void check_omp_enabled(){
     #endif
 }
 
+int omp_get_num_threads_safe(){
+    #ifdef _OPENMP
+        return omp_get_num_threads();
+    #else
+        cout << "WARNING! OMP DISABLED" << endl;
+        return 1;
+    #endif
+}
+
 #endif
