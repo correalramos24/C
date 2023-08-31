@@ -6,9 +6,6 @@ project(histogram
 
 set(CMAKE_CXX_STANDARD 11)
 
-
-add_subdirectory("UTILS")
-
 add_executable(histo.exe main.cpp)
 
 target_link_libraries(histo.exe rand_init)
