@@ -32,4 +32,5 @@
 *.app
 
 UTILS/build/*
-APPS/*/build
+APPS/build
+APPS/UTILS/build
