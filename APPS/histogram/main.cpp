@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
+#include <omp.h>
+
 #include "rand_init.hh"
+#include "omp_helper.hh"
+
 
 #define SEED_NUM 33
 #define MIN_VAL 0
@@ -10,6 +14,8 @@ using namespace std;
 
 
 int main(int argc, char const *argv[]){
+
+    check_omp_enabled();
 
     const int N = 33;
 
