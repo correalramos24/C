@@ -27,3 +27,12 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 # ################################# Histogram #################################
+
+# ############################### Sorting Algs ################################
+
+set(SORTING_EXE_NAME sort.exe)
+add_executable(${SORTING_EXE_NAME} Sorting/main.cpp)
+
+
+
+# ############################### Sorting Algs ################################
