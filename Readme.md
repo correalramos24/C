@@ -1,7 +1,7 @@
 
 # CPlusPlus
 
-Just **C++** applications with **CMake** compilation environment.
+Just **C/C++** applications with **CMake** compilation environment.
 
 Aims to be used for trying CTest and also the deploy of the CI/CD pipelines.
 
