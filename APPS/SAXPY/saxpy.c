@@ -1,22 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sys/time.h>
-#include <time.h>
-
+#include "utils.c"
 
 void saxpy(int N, float a, const float *x, const float *y, float * z) {
 
     int i;
     for (i = 0; i < N; ++i) z[i] = a * x[i] + y[i];
-}
-
-void initialize(const int N, float *x, float *y, float *z){
-    int i;
-    for (i = 0; i < N; ++i) {
-        x[i] = 1.0F;
-        y[i] = 1.0F;
-        z[i] = 0.0F;
-    }
 }
 
 float computeResult(const int N,const float* z){
@@ -28,39 +17,38 @@ float computeResult(const int N,const float* z){
     return ret;
 }
 
-double get_time() {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    return tv.tv_sec + tv.tv_usec * 1e-6;
-//    return tv.tv_sec + tv.tv_usec;
-}
-
-
 
 int main() {
 
-    const long long N = 500*1024;
+    start_region("Allocate memory");
+    const long long N = 1024;
+    const float a = 1.0F;
     float *x = (float *)malloc(N * sizeof(float));
     float *y = (float *)malloc(N * sizeof(float));
     float *z = (float *)malloc(N * sizeof(float));
+    end_region();
 
-    //Initialize data:
-    printf("Elements: %lld\nElement size: %ld\n", N, sizeof(float));
+    printf("Elements: %lld - Element size: %ld\n", N, sizeof(float));
 
-    initialize(N, x, y ,z);
-    double start_time = get_time();
+    start_region("initialize data");
+    initialize_arrays(N, x, y ,z);
+    end_region();
 
-    //sAXpY
-    const float a = 1.0F;
+    start_region("SAXPY computation");
     saxpy(N, a, x, y, z);
-    float r = computeResult(N,z);
-    double end_time = get_time();
+    double elp_time = end_region();
 
-    double elapsed_time = end_time - start_time;
-    double flops = ((2 * N) / elapsed_time)/1000000;
+    double flops = ((2 * N) / elp_time)/1000000;
+    float r = computeResult(N,z);
+
+    start_region("Free memory");
+    free(x);
+    free(y);
+    free(z);
+    end_region();
 
     //I/O
-    printf("SAXPY completed in %.8f s. ", elapsed_time);
+    printf("SAXPY completed in %.8f s. ", elp_time);
     printf("With result : %f\n",r);
     printf("> MFLOPS: %.2f\n", flops);
     return 0;
