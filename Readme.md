@@ -1,5 +1,5 @@
 
-# CPlusPlus
+# C
 
 Just **C/C++** applications with **CMake** compilation environment.
 
