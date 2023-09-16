@@ -5,7 +5,7 @@ project(myC++_Apps
         LANGUAGES CXX)
 
 
-# ################################# Histogram #################################
+# ################################# Histogram ##################################
 set(HISTO_EXE_NAME histo.exe)
 add_executable(${HISTO_EXE_NAME} histogram/main.cpp)
 
@@ -26,13 +26,13 @@ if(OpenMP_CXX_FOUND)
         target_include_directories(${HISTO_OMP_TARGET} PUBLIC UTILS/include)
 endif()
 
-# ################################# Histogram #################################
+# ################################# Histogram ##################################
 
-# ############################### Sorting Algs ################################
+# ############################### Sorting Algs #################################
 
 set(SORTING_EXE_NAME sort.exe)
 add_executable(${SORTING_EXE_NAME} Sorting/main.cpp)
 
 
 
-# ############################### Sorting Algs ################################
+# ############################### Sorting Algs #################################
