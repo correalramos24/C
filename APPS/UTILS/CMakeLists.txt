@@ -4,8 +4,11 @@ project(cplusplus_utils
         VERSION 1.0
         LANGUAGES CXX)
 
-set(SOURCES src/rand_init.cpp)
-set(HEADERS include/rand_init.hh)
+set(SOURCES_rand_init src/rand_init.cpp)
+set(HEADERS_rand_init include/rand_init.hh)
 
-add_library(rand_init ${SOURCES} ${HEADERS})
+add_library(rand_init ${SOURCES_rand_init} ${HEADERS_rand_init})
 target_include_directories(rand_init PUBLIC include)
+
+add_library(timing src/timing.c include/timing.h)
+target_include_directories(timing PUBLIC include)
