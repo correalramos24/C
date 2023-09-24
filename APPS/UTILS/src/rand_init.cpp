@@ -1,6 +1,4 @@
-
 #include "rand_init.hh"
-#include <cstdlib>   // Para funciones de generación de números aleatorios
 
 using namespace std;
 
