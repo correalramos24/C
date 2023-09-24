@@ -33,6 +33,10 @@ All the apps can be built with CMAKE.
 
 ## Utils to implement 
 * Benchmark arguments for all the APPS.
+* Complete benchmark of all the APPS.
 * Timing functions (in pure C).
 * logging functions (in pure C).
 
+# Other TODO
+* Add badges with the OMP, MPI etc..
+* Add documentation with Github pages from my notes.

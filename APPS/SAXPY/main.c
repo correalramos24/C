@@ -17,7 +17,6 @@ float computeResult(const int N,const float* z){
     return ret;
 }
 
-
 int main() {
 
     start_region("Allocate memory");
