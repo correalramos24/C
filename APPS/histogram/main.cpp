@@ -8,7 +8,7 @@
 
 #define SEED_NUM 33
 #define MIN_VAL 0
-#define MAX_VAL 50
+#define MAX_VAL 10
 
 using namespace std;
 
@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]){
 
     check_omp_enabled();
 
-    const int N = 33;
+    const int N = 100000;
 
     vector<int> data(N);
     vector<int> hist(1 + MAX_VAL - MIN_VAL, 0);
@@ -31,7 +31,7 @@ int main(int argc, char const *argv[]){
     }
 
     // Write the result
-    for(int i = 0; i < N; ++i){
+    for(int i = 0; i < MAX_VAL; ++i){
         cout << i << " " << hist[i] << endl;
     }
 
