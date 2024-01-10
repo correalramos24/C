@@ -1,6 +1,12 @@
+# OpenMP 5.0
 
-- [OpenMP](#openmp)
-  - [Bascic API calls](#bascic-api-calls)
+Compiler directives framework for multithreading with C, C++ and Fortran.
+Official reference is [here](https://www.openmp.org/spec-html/5.0/openmp.html).
+
+**Content**
+
+- [OpenMP 5.0](#openmp-50)
+  - [Basic API calls](#basic-api-calls)
   - [Definitions](#definitions)
     - [Data-sharing](#data-sharing)
   - [Synchronization directives](#synchronization-directives)
@@ -14,12 +20,7 @@
     - [Explicit task worksharing](#explicit-task-worksharing)
     - [Implicit task worksharing](#implicit-task-worksharing)
 
-
-# OpenMP
-
-Compiler directives framework for multithreading with C, C++ and Fortran.
-
-## Bascic API calls
+## Basic API calls
 
 ```c++
 //Thread ids
@@ -105,5 +106,4 @@ Just one thread will execute this blocks
 ### Explicit task worksharing
 
 ### Implicit task worksharing
-
 
