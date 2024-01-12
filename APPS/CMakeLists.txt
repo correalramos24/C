@@ -51,3 +51,26 @@ add_executable(${SAXPY_EXE_NAME} SAXPY/main.c)
 target_link_libraries(${SAXPY_EXE_NAME} PUBLIC timing)
 target_include_directories(${SAXPY_EXE_NAME} PUBLIC UTILS/include)
 # ################################### SAXPY ######################################
+
+# ################################## VEC_ADD #####################################
+set(VEC_ADD_EXE_NAME vec_add.exe)
+add_executable(${VEC_ADD_EXE_NAME} VEC_ADD/main.c)
+target_link_libraries(${VEC_ADD_EXE_NAME} PUBLIC timing)
+target_link_libraries(${VEC_ADD_EXE_NAME} PUBLIC random_init_c)
+target_include_directories(${VEC_ADD_EXE_NAME} PUBLIC UTILS/include)
+
+
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+        set(VEC_ADD_OMP_TARGET vec_add_OMP.exe)
+        add_executable(${VEC_ADD_OMP_TARGET} VEC_ADD/main.c)
+        target_link_libraries(${VEC_ADD_OMP_TARGET} PUBLIC OpenMP::OpenMP_C)
+
+        # Histogram libraries:
+        target_link_libraries(${VEC_ADD_OMP_TARGET} PUBLIC timing)
+        target_link_libraries(${VEC_ADD_OMP_TARGET} PUBLIC random_init_c)
+        target_include_directories(${VEC_ADD_OMP_TARGET} PUBLIC UTILS/include)
+
+endif()
+# ################################## VEC_ADD #####################################
+
