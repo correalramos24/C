@@ -66,7 +66,7 @@ if(OpenMP_CXX_FOUND)
         add_executable(${VEC_ADD_OMP_TARGET} VEC_ADD/main.c)
         target_link_libraries(${VEC_ADD_OMP_TARGET} PUBLIC OpenMP::OpenMP_C)
 
-        # Histogram libraries:
+        # libraries:
         target_link_libraries(${VEC_ADD_OMP_TARGET} PUBLIC timing)
         target_link_libraries(${VEC_ADD_OMP_TARGET} PUBLIC random_init_c)
         target_include_directories(${VEC_ADD_OMP_TARGET} PUBLIC UTILS/include)
@@ -74,3 +74,24 @@ if(OpenMP_CXX_FOUND)
 endif()
 # ################################## VEC_ADD #####################################
 
+# ################################## EVEN_ODD ####################################
+set(ODD_EVEN_EXE_NAME odd_even.exe)
+add_executable(${ODD_EVEN_EXE_NAME} ODD_EVEN/main.c)
+target_link_libraries(${ODD_EVEN_EXE_NAME} PUBLIC timing)
+target_link_libraries(${ODD_EVEN_EXE_NAME} PUBLIC random_init_c)
+target_include_directories(${ODD_EVEN_EXE_NAME} PUBLIC UTILS/include)
+
+find_package(OpenMP)
+if(OpenMP_CXX_FOUND)
+        set(ODD_EVEN_OMP_NAME odd_even_OMP.exe)
+        add_executable(${ODD_EVEN_OMP_NAME} ODD_EVEN/main.c)
+        target_link_libraries(${ODD_EVEN_OMP_NAME} PUBLIC OpenMP::OpenMP_C)
+
+        # libraries:
+        target_link_libraries(${ODD_EVEN_OMP_NAME} PUBLIC timing)
+        target_link_libraries(${ODD_EVEN_OMP_NAME} PUBLIC random_init_c)
+        target_include_directories(${ODD_EVEN_OMP_NAME} PUBLIC UTILS/include)
+
+endif()
+
+# ################################## EVEN_ODD ####################################
