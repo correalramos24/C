@@ -9,6 +9,7 @@ Official reference is [here](https://www.openmp.org/spec-html/5.0/openmp.html).
   - [Basic API calls](#basic-api-calls)
   - [Definitions](#definitions)
     - [Data-sharing](#data-sharing)
+    - [Flush, Sync and atomicity](#flush-sync-and-atomicity)
   - [Synchronization directives](#synchronization-directives)
   - [Basic directives - Constructors](#basic-directives---constructors)
     - [Parallel region](#parallel-region)
@@ -19,6 +20,7 @@ Official reference is [here](https://www.openmp.org/spec-html/5.0/openmp.html).
     - [Section and Single worksharing](#section-and-single-worksharing)
     - [Explicit task worksharing](#explicit-task-worksharing)
     - [Implicit task worksharing](#implicit-task-worksharing)
+  - [API Calls](#api-calls)
 
 ## Basic API calls
 
@@ -37,7 +39,6 @@ double end = omp_get_wtime();
 ## Definitions
 
 ### Data-sharing
-
 There are different kinds of variables in OpenMP, depending the behavior that we require:
 
 1. Shared variable: All references within a task to this kind of variable points to the original variable. Synchronization by the programmer is required to avoid data-race.
@@ -46,8 +47,28 @@ There are different kinds of variables in OpenMP, depending the behavior that we
 
 By default, OpenMP sets all the variables referenced inside a constructor as shared. `default(none)` requires that each variable explicitly determine in a data-sharing clause.
 
-## Synchronization directives
+### Flush, Sync and atomicity
+OpenMP provides different synchronitzation mechanism: 
+* Flush: 
+* Barrier:
+* Cancellation:
+* Atomicity:
 
+## Synchronization directives
+The different synch directives are listed here, from more to less intrusive.
+```C
+#pragma omp barrier
+
+#pragma omp flush
+
+#pragma omp critical [(name)]
+{
+  // Critical region
+}
+
+#pragma omp atomic
+// Read-Update-Write C line
+```
 ## Basic directives - Constructors
 
 ### Parallel region
@@ -71,7 +92,6 @@ This constructor create a new <u>team</u> of threads to execute the block. There
 * Data copying clause `copyin(list)`: Mechanism to copy from the master thread to the thread private space (allow array and non-array variables).
 
 ### Explicit tasks definition
-
 Each thread that encounters this constructor will generate an explicit task, that can be directly executed or defer its execution for the future, that will be executed by any thread in the <u>team</u>. 
 
 The task will execute the code block with the data environment defined by the data-sharing clauses on the directive (by default, variables are captured as firstprivate).
@@ -96,7 +116,6 @@ Completion of the tasks is only guaranteed using <u>task synchronization</u> con
 
 
 ## Worksharing directives
-
 Distribute the execution of the region among the threads of a <u>team</u>.
 
 
@@ -107,3 +126,5 @@ Just one thread will execute this blocks
 
 ### Implicit task worksharing
 
+
+## API Calls
