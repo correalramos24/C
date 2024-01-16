@@ -11,7 +11,7 @@
 #include "omp_helper.h"
 
 int vec_add_divide_and_conquer(int* array, int start, int end);
-int vec_add_rec(int* array, int N);
+int vec_add_iter(int* array, int N);
 
 int vec_add_divide_and_conquer(int* array, int start, int end){
     if(start == end)
@@ -23,7 +23,7 @@ int vec_add_divide_and_conquer(int* array, int start, int end){
         left_add = vec_add_divide_and_conquer(array, start, middle);
         #pragma omp task
         right_add = vec_add_divide_and_conquer(array, middle+1, end);
-        #pragma omp taskwait
+        #pragma omp taskwait        
         return left_add + right_add;
     }
 }
