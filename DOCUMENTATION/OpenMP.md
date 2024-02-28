@@ -10,7 +10,9 @@ Official reference is [here](https://www.openmp.org/spec-html/5.0/openmp.html).
   - [Definitions](#definitions)
     - [Data-sharing](#data-sharing)
     - [Flush, Sync and atomicity](#flush-sync-and-atomicity)
-  - [Synchronization directives](#synchronization-directives)
+  - [Synchronization](#synchronization)
+    - [Directive-based](#directive-based)
+    - [API-based](#api-based)
   - [Basic directives - Constructors](#basic-directives---constructors)
     - [Parallel region](#parallel-region)
     - [Explicit tasks definition](#explicit-tasks-definition)
@@ -20,7 +22,7 @@ Official reference is [here](https://www.openmp.org/spec-html/5.0/openmp.html).
     - [Section and Single worksharing](#section-and-single-worksharing)
     - [Explicit task worksharing](#explicit-task-worksharing)
     - [Implicit task worksharing](#implicit-task-worksharing)
-  - [API Calls](#api-calls)
+  - [Other API Calls](#other-api-calls)
 
 ## Basic API calls
 
@@ -54,7 +56,9 @@ OpenMP provides different synchronitzation mechanism:
 * Cancellation:
 * Atomicity:
 
-## Synchronization directives
+## Synchronization
+
+### Directive-based
 The different synch directives are listed here, from more to less intrusive.
 ```C
 #pragma omp barrier
@@ -69,6 +73,14 @@ The different synch directives are listed here, from more to less intrusive.
 #pragma omp atomic
 // Read-Update-Write C line
 ```
+
+### API-based
+OpenMP provides an API mechanism for a more flexible synchronitzation implementations, named lock
+
+```C
+//Add lock headers
+```
+
 ## Basic directives - Constructors
 
 ### Parallel region
@@ -127,4 +139,4 @@ Just one thread will execute this blocks
 ### Implicit task worksharing
 
 
-## API Calls
+## Other API Calls
