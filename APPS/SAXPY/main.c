@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "utils.c"
+#include "io_helper.h"
+#include "timing.h"
 
 void saxpy(int N, float a, const float *x, const float *y, float * z) {
 
@@ -15,6 +16,15 @@ float computeResult(const int N,const float* z){
         ret += z[i];
     }
     return ret;
+}
+
+void initialize_arrays(const int N, float *x, float *y, float *z){
+    int i;
+    for (i = 0; i < N; ++i) {
+        x[i] = 1.0F;
+        y[i] = 1.0F;
+        z[i] = 0.0F;
+    }
 }
 
 int main() {
