@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "rand_init.hh": "c",
+        "io_helper.h": "c",
+        "math.h": "c",
         "random_init.h": "c"
     }
 }
