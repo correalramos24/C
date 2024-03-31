@@ -95,3 +95,14 @@ if(OpenMP_CXX_FOUND)
 endif()
 
 # ################################## EVEN_ODD ####################################
+
+
+# ################################## EXP #######################################
+set(EXP_EXE_NAME exp.exe)
+add_executable(${EXP_EXE_NAME} EXP/main.c)
+target_link_libraries(${EXP_EXE_NAME} PUBLIC timing)
+target_link_libraries(${EXP_EXE_NAME} PUBLIC io_helper)
+target_include_directories(${EXP_EXE_NAME} PUBLIC UTILS/include)
+
+# ################################## EXP #######################################
+

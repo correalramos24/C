@@ -15,3 +15,6 @@ target_include_directories(timing PUBLIC include)
 
 add_library(random_init_c src/random_init.c include/random_init.h)
 target_include_directories(random_init_c PUBLIC include)
+
+add_library(io_helper src/io_helper.c include/io_helper.h) 
+target_include_directories(io_helper PUBLIC include)
