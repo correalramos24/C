@@ -21,7 +21,7 @@ int main(int argc, char *argv[]){
 
     // Init data
     v = (int*) malloc(N*sizeof(int));
-    fill_array(v, N, 0, 100, 33);
+    fill_int_array(v, N, 0, 100, 33);
 
     int odd = 0, even = 0;
     int progress = 0;

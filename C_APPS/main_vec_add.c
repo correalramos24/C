@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
     
     // Init data
     v = (int*) malloc(N*sizeof(int));
-    fill_array(v, N, 0, 100, 33);
+    fill_int_array(v, N, 0, 100, 33);
     
     // Results
     int r1, r2, r3;
