@@ -1,41 +1,43 @@
 
 CC = gcc
-CFLAGS= -I UTILS/include
+CFLAGS = -I UTILS/include
+BINDIR = BIN
+OBJDIR = .OBJ
 
-all: saxpy.exe exp.exe odd_even.exe sieve.exe sieve_io.exe vec_add.exe
+$(shell mkdir -p $(BINDIR) $(OBJDIR))
+
+all: $(BINDIR)/saxpy.exe $(BINDIR)/exp.exe $(BINDIR)/odd_even.exe \
+	$(BINDIR)/sieve.exe $(BINDIR)/sieve_io.exe $(BINDIR)/vec_add.exe
 
 .PHONY: clean
 
-saxpy.exe: main_saxpy.o timing.o
+$(OBJDIR)/main_%.o: main_%.c
+	$(CC) $(CFLAGS) -c $^ -o $@
+
+$(BINDIR)/saxpy.exe: $(OBJDIR)/main_saxpy.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-exp.exe: main_exp.o timing.o io_helper.o
+$(BINDIR)/exp.exe: $(OBJDIR)/main_exp.o
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 
-odd_even.exe: main_odd_even.o random_init.o timing.o
+$(BINDIR)/odd_even.exe: $(OBJDIR)/main_odd_even.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-sieve.exe: main_sieve.o timing.o
+$(BINDIR)/sieve.exe: $(OBJDIR)/main_sieve.o 
 	$(CC) $(CFLAGS) $^ -o $@
 
-sieve_io.exe: main_sieve.c timing.o
+$(BINDIR)/sieve_io.exe: $(OBJDIR)/main_sieve.o
 	$(CC) $(CFLAGS) $^ -o $@ -D_IO=1
 
-vec_add.exe: main_vec_add.o random_init.o
+$(BINDIR)/vec_add.exe: $(OBJDIR)/main_vec_add.o
 	$(CC) $(CFLAGS) $^ -o $@
 
-# UTILS DEFINITIONS TO BE MOVED
-timing.o: UTILS/include/timing.h UTILS/src/timing.c
-	$(CC) $(CFLAGS) -c UTILS/src/timing.c -o $@
 
-io_helper.o: UTILS/include/io_helper.h UTILS/src/io_helper.c
-	$(CC) $(CFLAGS) -c UTILS/src/io_helper.c -o $@
-
-random_init.o: UTILS/include/random_init.h UTILS/src/random_init.c
-	$(CC) $(CFLAGS) -c UTILS/src/random_init.c -o $@
-	
 clean:
 	rm -rdf *.exe *.o
+	rm -rdf $(BINDIR) $(OBJDIR)
+pronto:
+	echo $(UTILS_SRC)
 
 run:
 	@echo "WIP"
