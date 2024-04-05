@@ -1,15 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "timing.h"
+#include <omp.h>
+#include "omp_helper.h"
 
-void saxpy(int N, float a, const float *x, const float *y, float * z) {
+#ifdef DOUBLE_PREC
+    #define WP float
+#else
+    #define WP double
+#endif
 
-    int i;
-    for (i = 0; i < N; ++i) z[i] = a * x[i] + y[i];
+void usage(){
+    printf("Usage: saxpy.exe <SIZE>\n");
 }
 
-float computeResult(const int N,const float* z){
-    float ret = 0.0f;
+void saxpy(int N, WP a, const WP *x, const WP *y, WP * z) {
+    int i;
+    #pragma omp parallel for
+    for (i = 0; i < N; ++i)
+        z[i] = a * x[i] + y[i];
+}
+
+WP computeResult(const int N,const WP* z){
+    WP ret = 0.0f;
     int i;
     for (i = 0; i < N; ++i) {
         ret += z[i];
@@ -17,7 +30,7 @@ float computeResult(const int N,const float* z){
     return ret;
 }
 
-void initialize_arrays(const int N, float *x, float *y, float *z){
+void initialize_arrays(const int N, WP *x, WP *y, WP *z){
     int i;
     for (i = 0; i < N; ++i) {
         x[i] = 1.0F;
@@ -26,17 +39,26 @@ void initialize_arrays(const int N, float *x, float *y, float *z){
     }
 }
 
-int main() {
+int main(int argc, char** argv) {
+    
+    check_omp_enabled();
+
+    // 1. Parse arguments (size required)
+    if(argc != 2) {
+        usage();
+        exit(1);
+    }
+
 
     start_region("Allocate memory");
-    const long long N = 1024;
-    const float a = 1.0F;
-    float *x = (float *)malloc(N * sizeof(float));
-    float *y = (float *)malloc(N * sizeof(float));
-    float *z = (float *)malloc(N * sizeof(float));
+    const long long N = atoi(argv[1]);
+    const WP a = 1.0F;
+    WP *x = (WP *)malloc(N * sizeof(WP));
+    WP *y = (WP *)malloc(N * sizeof(WP));
+    WP *z = (WP *)malloc(N * sizeof(WP));
     end_region();
 
-    printf("Elements: %lld - Element size: %ld\n", N, sizeof(float));
+    printf("Elements: %lld - Element size: %ld\n", N, sizeof(WP));
 
     start_region("initialize data");
     initialize_arrays(N, x, y ,z);
@@ -47,7 +69,7 @@ int main() {
     double elp_time = end_region();
 
     double flops = ((2 * N) / elp_time)/1000000;
-    float r = computeResult(N,z);
+    WP r = computeResult(N,z);
 
     start_region("Free memory");
     free(x);

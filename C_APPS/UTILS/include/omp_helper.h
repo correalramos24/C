@@ -1,3 +1,5 @@
+#ifndef __OMP_HELPER__
+#define __OMP_HELPER__
 
 #include <stdio.h>
 #include <omp.h>
@@ -25,3 +27,4 @@ int omp_get_num_threads_safe(){
     #endif
 }
 
+#endif
