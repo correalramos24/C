@@ -34,3 +34,4 @@
 UTILS/build/*
 APPS/build
 APPS/UTILS/build
+C_APPS/build/*
