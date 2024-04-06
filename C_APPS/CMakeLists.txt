@@ -13,3 +13,7 @@ include_directories("UTILS/include")
 
 # Add subdirs:
 add_subdirectory(SAXPY)
+add_subdirectory(VEC_ADD)
+add_subdirectory(EXP)
+add_subdirectory(ODD_EVEN)
+add_subdirectory(SIEVE)
