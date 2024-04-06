@@ -21,24 +21,22 @@ int main(int argc, char *argv[]){
 
     //Parse args:
     if(argc != 2){
-        printf("USAGE: a.out <num of max prime>\n");
-        printf("EXIT with code 1");
-        exit(0);
+        printf("USAGE: %s <num of max prime>\n", argv[0]);
+        exit(1);
     }
     
     //INIT:
-    t_init = get_time();
-
+    start_region("INIT");
     int N = atoi(argv[1]);
     bool* prime = malloc(sizeof(bool)*(N+1));
     for(int i = 0; i <= N; ++i)
         prime[i] = true;
     
     t_end = get_time();
-    print_time(t_end-t_init, "INIT");
+    end_region();
 
     //SIEVE: will be under sqrt(n) only
-    t_init = get_time();
+    start_region("SIEVE");
     for(int p = 2; p*p <= N; p++){
         if(prime[p]){
             //set false the multiples of p, under N:
@@ -47,13 +45,12 @@ int main(int argc, char *argv[]){
             }
         }
     }
-    t_end = get_time();
-    print_time(t_end-t_init, "SIEVE");
+    end_region();
 
 
     #if _IO
     //PRINT
-    t_init = get_time();
+    start_region("IO");
     int pretty=0;
     for(int p = 0; p < N; p++){
         if(prime[p])
@@ -65,7 +62,6 @@ int main(int argc, char *argv[]){
         
     }
     printf("\n");
-    t_end = get_time();
-    print_time(t_end-t_init, "SIEVE");
+    end_region();
     #endif
 }

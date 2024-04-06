@@ -12,9 +12,6 @@ double get_time(){
     return tv.tv_sec + tv.tv_usec * 1e-6;
 }
 
-void print_time(double elapsed, char* region){
-    printf("%s -> %f\n", region, elapsed);
-}
 
 // Timing v2
 bool log_enable = false;
