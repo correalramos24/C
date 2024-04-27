@@ -22,15 +22,30 @@ void write_float_array_into_file(float* array, const int N, const char m){
     return;
 }
 
-void write_double_array_into_file(double* array, const int N, const char m){
+void write_double_array_into_file(  double* array, 
+                                    const char* fName,
+                                    const int N, 
+                                    const char m)
+{
     // Open
-    FILE *file = fopen("output.bin", "w");
+    FILE *file = fopen(fName, "w");
     if(file == NULL) {
         printf("fopen: error"); 
         exit(0);
     }
     // Write
-    fwrite(array, sizeof(double), N, file);
+    if(m == 'b') {
+        fwrite(array, sizeof(double), N, file);
+    }
+    else if(m == 'a'){
+        for (int i = 0; i < N; i++) {
+            fprintf(file, "%lf\n", array[i]);
+        }
+    }
+    else{
+        printf("Invalid mode : %c ", m);
+        exit(1);
+    }
 
     // Close
     fclose(file);
