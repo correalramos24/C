@@ -51,10 +51,11 @@ By default, OpenMP sets all the variables referenced inside a constructor as sha
 
 ### Flush, Sync and atomicity
 OpenMP provides different synchronitzation mechanism: 
-* Flush: 
-* Barrier:
-* Cancellation:
-* Atomicity:
+* Flush: Memory barrier, force to finish all the pending memory operations
+* Barrier: Ensure thread synchronitzation
+* Locks: Provide an interface for lock-level sync.
+* Cancellation: Finish the execution of a parallel region
+* Atomicity: Atomic operations, using compiler support
 
 ## Synchronization
 
@@ -78,7 +79,14 @@ The different synch directives are listed here, from more to less intrusive.
 OpenMP provides an API mechanism for a more flexible synchronitzation implementations, named lock
 
 ```C
-//Add lock headers
+omp_lock_t* my_lock; // Variable definition
+//Create & destroy
+omp_init_lock(my_lock);  
+omp_destroy_lock(my_lock);
+//Manage status:
+omp_set_lock(my_lock);
+omp_unset_lock(my_lock);
+omp_test_lock(my_lock);
 ```
 
 ## Basic directives - Constructors
