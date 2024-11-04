@@ -8,7 +8,6 @@
 
 void saxpy(int N, WP a, const WP *x, const WP *y, WP * z) {
     int i;
-    #pragma omp parallel for
     for (i = 0; i < N; ++i)
         z[i] = a * x[i] + y[i];
 }
