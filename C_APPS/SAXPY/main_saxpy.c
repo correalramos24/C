@@ -8,15 +8,26 @@
 
 void saxpy(int N, WP a, const WP *x, const WP *y, WP * z) {
     int i;
-    for (i = 0; i < N; ++i)
-        z[i] = a * x[i] + y[i];
+    #pragma omp parallel
+    #pragma omp single
+    for (i = 0; i < N; i+=4)
+        #pragma omp task
+        for (size_t j = i; j < i+4; j++){
+            z[i] = a * x[i] + y[i];
+        }
 }
 
 WP computeResult(const int N,const WP* z){
     WP ret = 0.0f;
-    int i;
-    for (i = 0; i < N; ++i) {
-        ret += z[i];
+    WP ret_private = ret;
+    #pragma omp parallel for private(ret_private)
+    {
+        int i;
+        for (i = 0; i < N; ++i) {
+            ret_private += z[i];
+        }
+        #pragma omp atomic
+        ret += ret_private;
     }
     return ret;
 }

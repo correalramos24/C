@@ -26,8 +26,11 @@ int main(int argc, char const *argv[]){
     fill_array(data.data(), data.size(), MIN_VAL, MAX_VAL, SEED_NUM);
 
     // Call to histogram computation
+    #pragma omp parallel
     for(int i = 0; i < N; ++i){
-        hist[data[i]-MIN_VAL]++;
+        const int address = data[i]-MIN_VAL;
+        if(address == omp_get_thread_num())
+            hist[address]++;
     }
 
     // Write the result
